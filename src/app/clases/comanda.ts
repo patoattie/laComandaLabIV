@@ -7,17 +7,19 @@ export class Comanda
     public uid: string;
     public cliente: string;
     public photoURL: string;
-    public detalle: DetalleComanda;
+    public detalle: DetalleComanda[];
     public idMesa: string;
     public encuesta: Encuesta;
+    public fecha: string;
     public mozo: string;
 
     constructor(
         cliente?: string,
         photoURL?: string,
-        detalle?: DetalleComanda,
+        detalle?: DetalleComanda[],
         idMesa?: string,
         encuesta?: Encuesta,
+        fecha?: string,
         mozo?: string,
         idCollection?: string,
         uid?: string
@@ -28,6 +30,7 @@ export class Comanda
         this.detalle = detalle;
         this.idMesa = idMesa;
         this.encuesta = encuesta;
+        this.fecha = fecha;
         this.mozo = mozo;
         this.idCollection = idCollection;
         this.uid = uid;
