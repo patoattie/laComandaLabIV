@@ -4,19 +4,22 @@ export class Log
 {
     public idCollection: string;
     public uid: string;
-    public idSector: string;
+    public sector: string;
+    public usuario: string;
     public fecha: string;
     public operacion: EOperacion;
 
     constructor(
-        idSector?: string,
+        sector?: string,
+        usuario?: string,
         fecha?: string,
         operacion?: EOperacion,
         idCollection?: string,
         uid?: string
     )
     {
-        this.idSector = idSector;
+        this.sector = sector;
+        this.usuario = usuario;
         this.fecha = fecha;
         this.operacion = operacion;
         this.idCollection = idCollection;

@@ -6,14 +6,14 @@ import { Log } from "./log";
 export class Personal extends User
 {
   public tipo: ETipoPersonal;
-  public idSector: string;
-  public log: Log;
+  public sector: string;
+  public log: Log[];
   public estado: EEstadoPersonal;
 
   constructor(
     tipo?: ETipoPersonal, 
-    idSector?: string,
-    log?: Log,
+    sector?: string,
+    log?: Log[],
     estado?: EEstadoPersonal,
     user?: User,
     uid?: string,
@@ -32,7 +32,7 @@ export class Personal extends User
     }
     
     this.tipo = tipo;
-    this.idSector = idSector;
+    this.sector = sector;
     this.log = log;
     this.estado = estado;
   }

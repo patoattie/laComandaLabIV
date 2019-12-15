@@ -7,14 +7,14 @@ export class Producto
     public nombre: string;
     public photoURL?: string;
     public precio: number;
-    public idSector: string;
+    public sector: string;
     public comandas: Comanda[];
 
     constructor(
         nombre?: string,
         photoURL?: string,
         precio?: number,
-        idSector?: string,
+        sector?: string,
         comandas?: Comanda[],
         idCollection?: string,
         uid?: string
@@ -23,7 +23,7 @@ export class Producto
         this.nombre = nombre;
         this.photoURL = photoURL;
         this.precio = precio;
-        this.idSector = idSector;
+        this.sector = sector;
         this.comandas = comandas;
         this.idCollection = idCollection;
         this.uid = uid;
