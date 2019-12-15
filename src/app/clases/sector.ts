@@ -6,13 +6,13 @@ export class Sector
 {
     public idCollection: string;
     public uid: string;
-    public nombre: string;
+    public sector: string;
     public personal: Personal[];
     public log: Log[];
     public productos: Producto[];
 
     constructor(
-        nombre?: string,
+        sector?: string,
         personal?: Personal[],
         log?: Log[],
         productos?: Producto[],
@@ -20,7 +20,7 @@ export class Sector
         uid?: string
     )
     {
-        this.nombre = nombre;
+        this.sector = sector;
         this.personal = personal;
         this.log = log;
         this.productos = productos;

@@ -4,14 +4,14 @@ export class Producto
 {
     public idCollection: string;
     public uid: string;
-    public nombre: string;
+    public producto: string;
     public photoURL?: string;
     public precio: number;
     public sector: string;
     public comandas: Comanda[];
 
     constructor(
-        nombre?: string,
+        producto?: string,
         photoURL?: string,
         precio?: number,
         sector?: string,
@@ -20,7 +20,7 @@ export class Producto
         uid?: string
     )
     {
-        this.nombre = nombre;
+        this.producto = producto;
         this.photoURL = photoURL;
         this.precio = precio;
         this.sector = sector;
