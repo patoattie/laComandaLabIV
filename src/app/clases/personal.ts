@@ -1,18 +1,19 @@
 import { User } from "./user";
 import { ETipoPersonal } from "../enums/etipo-personal.enum";
 import { EEstadoPersonal } from "../enums/eestado-personal.enum";
+import { Log } from "./log";
 
 export class Personal extends User
 {
   public tipo: ETipoPersonal;
-  public sector: string;
-  public log: string;
+  public idSector: string;
+  public log: Log;
   public estado: EEstadoPersonal;
 
   constructor(
     tipo?: ETipoPersonal, 
-    sector?: string,
-    log?: string,
+    idSector?: string,
+    log?: Log,
     estado?: EEstadoPersonal,
     user?: User,
     uid?: string,
@@ -31,7 +32,7 @@ export class Personal extends User
     }
     
     this.tipo = tipo;
-    this.sector = sector;
+    this.idSector = idSector;
     this.log = log;
     this.estado = estado;
   }

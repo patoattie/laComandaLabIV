@@ -1,3 +1,5 @@
+import { Comanda } from "./comanda";
+
 export class Producto 
 {
     public idCollection: string;
@@ -6,5 +8,5 @@ export class Producto
     public photoURL?: string;
     public precio: number;
     public idSector: string;
-    public comandas: string;
+    public comandas: Comanda[];
 }

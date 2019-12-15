@@ -1,10 +1,11 @@
 import { EEstadoPedido } from "../enums/eestado-pedido.enum";
+import { Producto } from "./producto";
 
 export class DetalleComanda 
 {
     public idCollection: string;
     public uid: string;
-    public producto: string;
+    public producto: Producto;
     public cantidad: number;
     public importe: number;
     public estado: EEstadoPedido;
