@@ -113,17 +113,17 @@ export class PersonalService
     localStorage.removeItem('usuario');
   }*/
 
-  /*public getPswAdmin():string
+  public getPswSocio():string
   {
     return 'admin1234';
   }
 
-  public getMsjErrorAdmin(): string
+  public getMsjErrorSocio(): string
   {
-    return 'Clave de Administrador incorrecta';
-  }*/
+    return 'Clave de Socio incorrecta';
+  }
 
-  public esAdmin(): boolean
+  public esSocio(): boolean
   {
     return this.getUsuario(this.authService.getUid()).tipo == ETipoPersonal.Socio;
   }

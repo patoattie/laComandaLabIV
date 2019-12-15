@@ -1,0 +1,33 @@
+<app-cabecera>  </app-cabecera>
+
+<div class="container" >
+    <div class="jumbotron" style="padding:50px;">
+      <p-toast key="msjDatos" position="top-right"></p-toast>
+      <form [formGroup]="formLogin">
+        <div class="container">
+          <label><b>Usuario</b></label>
+          <span class="ui-float-label">
+              <input id="usuario" formControlName="usuario" name="uname" type="text" pInputText required> 
+              <label for="usuario">Ingresá tu usuario</label>
+          </span>
+  
+          <label><b>Clave</b></label>
+          <span class="ui-float-label">
+              <input id="clave" formControlName="clave" name="psw" type="password" [feedback]="false" pPassword required> 
+              <label for="clave">Ingresá tu clave</label>
+          </span>
+         
+          <button type="button" (click)="login()">
+            Ingresar
+            <i class="fa fa-spinner fa-spin" *ngIf="getEnEspera()"></i>
+          </button>
+        </div>
+  
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" class="aceptbtn" routerLink="/Registro" >Registrarse</button>
+          <button type="button" class="userbtn" (click)="completarUsuario()" >Usuario</button>
+          <button type="button" class="adminbtn" (click)="completarAdmin()" >Admin</button>
+        </div>
+      </form>
+    </div>
+</div>
