@@ -7,4 +7,17 @@ export class Mesa
     public uid: string;
     public comandas: Comanda[];
     public estado: EEstadoMesa;
+
+    constructor(
+        comandas?: Comanda[],
+        estado?: EEstadoMesa,
+        idCollection?: string,
+        uid?: string
+    )
+    {
+        this.comandas = comandas;
+        this.estado = estado;
+        this.idCollection = idCollection;
+        this.uid = uid;
+    }
 }

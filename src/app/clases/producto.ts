@@ -9,4 +9,23 @@ export class Producto
     public precio: number;
     public idSector: string;
     public comandas: Comanda[];
+
+    constructor(
+        nombre?: string,
+        photoURL?: string,
+        precio?: number,
+        idSector?: string,
+        comandas?: Comanda[],
+        idCollection?: string,
+        uid?: string
+    )
+    {
+        this.nombre = nombre;
+        this.photoURL = photoURL;
+        this.precio = precio;
+        this.idSector = idSector;
+        this.comandas = comandas;
+        this.idCollection = idCollection;
+        this.uid = uid;
+    }
 }
