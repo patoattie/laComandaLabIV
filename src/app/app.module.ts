@@ -13,18 +13,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CabeceraComponent } from './componentes/cabecera/cabecera.component';
 import { LoginComponent } from './componentes/login/login.component';
-
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 //primeNG
 import {ToolbarModule} from 'primeng/toolbar';
+import {MenuModule} from 'primeng/menu';
+import {TabMenuModule} from 'primeng/tabmenu';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import { InputTextModule } from "primeng/inputtext";
 import {PasswordModule} from 'primeng/password';
 import {ToastModule} from 'primeng/toast';
+import {ListboxModule} from 'primeng/listbox';
 
 import { AuthService } from './servicios/auth.service';
 import { MessageService } from 'primeng/api';
-import { RegistroComponent } from './componentes/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +45,13 @@ import { RegistroComponent } from './componentes/registro/registro.component';
     FormsModule,
     ReactiveFormsModule,
     ToolbarModule,
+    MenuModule,
+    TabMenuModule,
     TieredMenuModule,
     InputTextModule,
     PasswordModule,
     ToastModule,
+    ListboxModule,
     AppRoutingModule
   ],
   providers: [
