@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { CabeceraComponent } from './componentes/cabecera/cabecera.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { PrincipalComponent } from './componentes/principal/principal.component';
 
 //primeNG
 import {ToolbarModule} from 'primeng/toolbar';
@@ -33,7 +34,8 @@ import { MessageService } from 'primeng/api';
     AppComponent,
     CabeceraComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,

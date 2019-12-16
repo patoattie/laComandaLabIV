@@ -69,7 +69,7 @@ export class LogsService {
     })
     .then((doc) =>
     {
-      this.SetData(doc);
+      this.SetData(doc, log);
     });
   }
  
@@ -83,7 +83,7 @@ export class LogsService {
     return this.logCollection.doc(idCollection).delete();
   }
 
-  public SetData(log: DocumentReference)
+  public SetData(log: DocumentReference, unLog: Log)
   {
     const logRef: AngularFirestoreDocument<any> = this.afs.doc(`logs/${log.id}`);
     const logData = {
@@ -92,6 +92,10 @@ export class LogsService {
       usuario: this.authService.getEmail(),
       fecha: this.getFecha()
     };
+
+    unLog.idCollection = logData.idCollection;
+    unLog.uid = logData.uid;
+//console.info('unLog', unLog);
     return logRef.set(logData, {
       merge: true
     });

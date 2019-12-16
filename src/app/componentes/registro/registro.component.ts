@@ -9,10 +9,13 @@ import { Personal } from '../../clases/personal';
 import { ETipoPersonal } from '../../enums/etipo-personal.enum';
 import { SectoresService } from "../../servicios/sectores.service";
 import { Sector } from "../../clases/sector";
+import { LogsService } from '../../servicios/logs.service';
+import { Log } from '../../clases/log';
 
 import {SelectItem} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import { EEstadoPersonal } from '../../enums/eestado-personal.enum';
+import { EOperacion } from '../../enums/eoperacion.enum';
 
 //import * as $ from "jquery";
 
@@ -39,6 +42,7 @@ export class RegistroComponent implements OnInit {
     private cd: ChangeDetectorRef,
     public personalService: PersonalService,
     public sectoresService: SectoresService,
+    public logService: LogsService,
     public messageService: MessageService
     )
   {
@@ -102,7 +106,7 @@ export class RegistroComponent implements OnInit {
     }
     else
     {
-      this.formRegistro.setValue({usuario: '', clave: '', confirmaClave: '', sector: '', tipo: '', imagen: '', habilitaSocio: ''});
+      this.formRegistro.setValue({usuario: '', clave: '', confirmaClave: '', sector: '', perfil: '', imagen: '', habilitaSocio: ''});
     }
 
     if(this.sectores != undefined)
@@ -214,9 +218,22 @@ export class RegistroComponent implements OnInit {
           usuarioValido = this.authService.isLoggedIn();
           if(usuarioValido)
           {
-            let usuarioNuevo: Personal = new Personal(this.formRegistro.value.perfil, '', null, EEstadoPersonal.Activo, this.authService.getUserData());
-            await this.personalService.updateUsuario(usuarioNuevo);
-            this.mostrarMsjOk();
+            let logNuevo: Log = new Log('', this.formRegistro.value.usuario, this.logService.getFecha(), EOperacion.PersonalAlta);
+            this.logService.addLog(logNuevo)
+            .then(() =>
+            {
+              let arrLogs: Log[] = [];
+//console.info('logNuevo', logNuevo);
+              arrLogs.push(logNuevo);
+              let usuarioNuevo: Personal = new Personal(this.formRegistro.value.perfil, '', arrLogs, EEstadoPersonal.Activo, this.authService.getUserData());
+//console.info('arrLogs', arrLogs);
+//console.info('usuarioNuevo', usuarioNuevo);
+              this.personalService.updateUsuario(usuarioNuevo)
+              .then(() =>
+              {
+                this.mostrarMsjOk();
+              });
+            });
           }
           else
           {
@@ -243,7 +260,7 @@ export class RegistroComponent implements OnInit {
     {
       let sectorAnterior: Sector = this.sectoresService.getSector(this.usuario.sector, this.sectores);
       let usuarioAnterior: Personal = new Personal(this.usuario.tipo, this.usuario.sector, this.usuario.log, this.usuario.estado, null, this.usuario.uid, this.usuario.email, this.usuario.displayName, this.usuario.photoURL, this.usuario.emailVerified);
-      let sectorNueva: Sector;
+      let sectorNuevo: Sector;
       this.usuario.tipo = this.formRegistro.value.perfil;
       this.usuario.sector = this.formRegistro.value.sector;
       await this.personalService.updateUsuario(this.usuario);
@@ -270,15 +287,15 @@ export class RegistroComponent implements OnInit {
       //Asigno al usuario al nuevo sector
       if(this.usuario.sector != "")
       {
-        sectorNueva = this.sectoresService.getSector(this.usuario.sector, this.sectores);
+        sectorNuevo = this.sectoresService.getSector(this.usuario.sector, this.sectores);
 
-        if(sectorNueva.personal == undefined)
+        if(sectorNuevo.personal == undefined)
         {
-          sectorNueva.personal = [];
+          sectorNuevo.personal = [];
         }
 
-        sectorNueva.personal.push(this.usuario);
-        await this.sectoresService.updateSector(sectorNueva);
+        sectorNuevo.personal.push(this.usuario);
+        await this.sectoresService.updateSector(sectorNuevo);
       }
 
       this.mostrarMsjOk();

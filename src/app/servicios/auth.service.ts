@@ -189,7 +189,7 @@ export class AuthService {
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   public SetUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`usuarios/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`personal/${user.uid}`);
     const userData: User = {
       uid: user.uid,
       email: user.email,
