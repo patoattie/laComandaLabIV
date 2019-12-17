@@ -1,1 +1,25 @@
-<p>abm-sector works!</p>
+<body>
+    <div>
+      <p-toast key="msjDatos" position="top-right"></p-toast>
+  
+      <form [formGroup]="formRegistro">
+        <div class="container-fluid">
+          <label><b>Sector</b></label>
+          <span class="ui-float-label">
+              <input id="float-input" formControlName="sector" name="sector" type="text" pInputText required> 
+              <label for="float-input">Ingresa el sector</label>
+          </span>
+
+          <div class="clearfix">
+            <button type="button" (click)="sectoresService.muestraAbm=false" class="cancelbtn">Volver</button>
+            <button type="button" (click)="registrar()" class="signupbtn">
+              Guardar
+              <i class="fa fa-spinner fa-spin" *ngIf="getEnEspera()"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+  
+    </div>
+    
+</body>

@@ -1,3 +1,4 @@
 <app-cabecera (opcionMenuSocio)="novedadOpcionMenuSocio($event)"></app-cabecera>
 
-<p>principal works!</p>
+<app-listado-sectores *ngIf="listaSectores" [sectores]="sectores"></app-listado-sectores>
+<app-listado-personal *ngIf="listaPersonal" [esLov]="false" [logs]="logs" [sectores]="sectores" [personal]="personal"></app-listado-personal>

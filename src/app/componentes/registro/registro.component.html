@@ -30,7 +30,7 @@
     
           <label><b>Selecciona un perfil</b></label>
           <p-listbox formControlName="perfil" [options]="perfiles"></p-listbox>
-          <span class="ui-float-label" *ngIf="eligeSocio()">
+          <span class="ui-float-label" *ngIf="!authService.isLoggedIn() && eligeSocio()">
               <input id="habilitaSocio" formControlName="habilitaSocio" name="pswSocio" type="password" [feedback]="false" pPassword> 
               <label for="habilitaSocio">Ingresá la clave para habilitar Socio</label>
           </span>
@@ -41,7 +41,7 @@
           <input *ngIf="!authService.isLoggedIn()" formControlName="imagen" type="file" name="img-file" accept="image/png" id="img-file">
   
           <div class="clearfix">
-            <button *ngIf="authService.isLoggedIn()" type="button" (click)="usuariosService.muestraAbm=false" class="cancelbtn">Volver</button>
+            <button *ngIf="authService.isLoggedIn()" type="button" (click)="personalService.muestraAbm=false" class="cancelbtn">Volver</button>
             <button *ngIf="!authService.isLoggedIn()" type="button" (click)="goBack()" class="cancelbtn">Volver</button>
             <button *ngIf="!authService.isLoggedIn()" type="button" (click)="registrar()" class="signupbtn">
               Registrarme

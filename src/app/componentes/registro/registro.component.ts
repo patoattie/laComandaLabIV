@@ -31,8 +31,8 @@ export class RegistroComponent implements OnInit {
   public perfiles: SelectItem[];
   @Input() sectores: Sector[];
   @Input() usuario: Personal;
-  //private usuarios: Personal[];
-  @Input() usuarios: Personal[];
+  //private personal: Personal[];
+  @Input() personal: Personal[];
   public listaSectores: any[] = [];
 
   constructor(
@@ -118,7 +118,7 @@ export class RegistroComponent implements OnInit {
     }
 
     //this.personalService.getUsuarios()
-    //.subscribe(usuarios => this.usuarios = usuarios);
+    //.subscribe(personal => this.personal = personal);
   }
 
   private mostrarMsjErrorDatos(): void
@@ -260,7 +260,8 @@ export class RegistroComponent implements OnInit {
       let usuarioAnterior: Personal = new Personal(this.usuario.tipo, this.usuario.sector, this.usuario.log, this.usuario.estado, null, this.usuario.uid, this.usuario.email, this.usuario.displayName, this.usuario.photoURL, this.usuario.emailVerified);
       let sectorNuevo: Sector;
       this.usuario.tipo = this.formRegistro.value.perfil;
-      this.usuario.sector = this.formRegistro.value.sector;
+      //this.usuario.sector = this.formRegistro.value.sector;
+      this.usuario.sector = this.sectoresService.getSector(this.formRegistro.value.sector, this.sectores).idCollection;
       await this.personalService.updateUsuario(this.usuario);
 
       //Remuevo al usuario del sector donde estaba antes

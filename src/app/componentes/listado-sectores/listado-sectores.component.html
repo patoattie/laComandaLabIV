@@ -4,8 +4,8 @@
         <div class="ui-toolbar-group-left">
           <button *ngIf="personalService.esSocio()" type="button" #btn pButton icon="pi pi-plus" (click)="habilitaAbm(true)"></button>
           <button *ngIf="sectorSeleccionado != null && personalService.esSocio()" type="button" #btn pButton icon="pi pi-pencil" (click)="habilitaAbm(false)" style="margin-left: 2px;"></button>
-          <button *ngIf="sectorSeleccionado != null" type="button" #btn pButton icon="pi pi-users" (click)="muestraPersonal(true)" style="margin-left: 2px;"></button>
-          <button *ngIf="sectorSeleccionado != null" type="button" #btn pButton icon="pi pi-search" (click)="muestraMov(true)" style="margin-left: 2px;"></button>
+          <button *ngIf="sectorSeleccionado != null" type="button" #btn pButton icon="pi pi-users" label="personal" (click)="muestraPersonal(true)" style="margin-left: 2px;"></button>
+          <button *ngIf="sectorSeleccionado != null" type="button" #btn pButton icon="pi pi-search" label="log" (click)="muestraLog(true)" style="margin-left: 2px;"></button>
         </div>
         <div class="ui-toolbar-group-right">        
             <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
@@ -17,23 +17,22 @@
         <tr>
           <th *ngFor="let col of columns" [pSortableColumn]="col.field" [pSortableColumnDisabled]="col.field === 'photoURL'">
             {{col.header}}
-            <p-sortIcon *ngIf="col.field != 'photoURL'" [field]="col.field"></p-sortIcon>
+            <p-sortIcon [field]="col.field"></p-sortIcon>
           </th>
         </tr>
         <tr>
           <th *ngFor="let col of columns">
-            <input *ngIf="col.field != 'photoURL'" style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+            <input style="width: 100%;" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
           </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
-      <tr *ngIf="personalService.esSocio() || rowData['sector'] == personalService.getSucursal()" [ngClass]="(sectorSeleccionado != null && rowData.idCollection == sectorSeleccionado.idCollection) ? 'filaSeleccionada' : null" (click)="eligeSucursal($event, rowData)">
+      <tr *ngIf="personalService.esSocio()" [ngClass]="(sectorSeleccionado != null && rowData.idCollection == sectorSeleccionado.idCollection) ? 'filaSeleccionada' : null" (click)="eligeSector($event, rowData)">
         <td *ngFor="let col of columns">
-          <p *ngIf="col.field != 'photoURL'">{{rowData[col.field]}}</p>
-          <img *ngIf="col.field == 'photoURL'" src="{{rowData[col.field]}}" alt="" style="width: 25%;">
+          <p>{{rowData[col.field]}}</p>
         </td>
       </tr>
     </ng-template>
 </p-table>
 
-<app-abm-sector *ngIf="sectoresService.muestraAbm" [sector]="sectorSeleccionado"></app-abm-sector>
+<app-abm-sector *ngIf="sectoresService.muestraAbm" [sector]="sectorSeleccionado" [sectores]="sectores"></app-abm-sector>

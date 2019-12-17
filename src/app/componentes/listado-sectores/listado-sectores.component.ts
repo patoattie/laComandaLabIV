@@ -11,30 +11,29 @@ import { PersonalService } from '../../servicios/personal.service';
 export class ListadoSectoresComponent implements OnInit 
 {
   @Input() sectores: Sector[];
-  public sucursalSeleccionada: Sector = null;
+  public sectorSeleccionado: Sector = null;
   public cols: any[];
   public verPersonal: boolean = false;
-  public verMov: boolean = false;
+  public verLog: boolean = false;
 
   constructor(public sectoresService: SectoresService, public personalService: PersonalService) { }
 
   ngOnInit() 
   {
     this.cols = [
-      { field: 'photoURL', header: 'Foto' },
-      { field: 'sucursal', header: 'Sector' }
+      { field: 'sector', header: 'Sector' }
     ];
   }
 
-  public eligeSector(event, unaSector: Sector): void
+  public eligeSector(event, unSector: Sector): void
   {
     if(event.ctrlKey)
     {
-      this.sucursalSeleccionada = null;
+      this.sectorSeleccionado = null;
     }
     else
     {
-      this.sucursalSeleccionada = unaSector;
+      this.sectorSeleccionado = unSector;
     }
   }
 
@@ -42,7 +41,7 @@ export class ListadoSectoresComponent implements OnInit
   {
     if(agrega)
     {
-      this.sucursalSeleccionada = null;
+      this.sectorSeleccionado = null;
     }
 
     this.sectoresService.muestraAbm = true;
@@ -53,8 +52,8 @@ export class ListadoSectoresComponent implements OnInit
     this.verPersonal = muestra;
   }
 
-  public muestraMov(muestra: boolean): void
+  public muestraLog(muestra: boolean): void
   {
-    this.verMov = muestra;
+    this.verLog = muestra;
   }
 }

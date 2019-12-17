@@ -8,6 +8,7 @@ import {MessageService} from 'primeng/api';
 import { Log } from '../../clases/log';
 import { LogsService } from '../../servicios/logs.service';
 import { EOperacion } from '../../enums/eoperacion.enum';
+import { SectoresService } from '../../servicios/sectores.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     public authService: AuthService, 
     private personalService: PersonalService,
     private logService: LogsService,
+    private sectoresService: SectoresService,
     public messageService: MessageService
     ) 
     {
@@ -105,11 +107,23 @@ export class LoginComponent implements OnInit {
           .toPromise()
           .then((unUsuario) =>
           {
-            let arrLogs: Log[] = unUsuario.log;
-            arrLogs.push(logNuevo);
-            unUsuario.log = arrLogs;
+            let arrLogsUsuario: Log[] = unUsuario.log;
+            arrLogsUsuario.push(logNuevo);
+            unUsuario.log = arrLogsUsuario;
             this.personalService.updateUsuario(unUsuario);
-//console.info('unUsuario', unUsuario);
+
+            if(unUsuario.sector != "")
+            {
+              this.sectoresService.getSectorPorId(unUsuario.sector)
+              .toPromise()
+              .then((unSector) =>
+              {
+                let arrLogsSector: Log[] = unSector.log;
+                arrLogsSector.push(logNuevo);
+                unSector.log = arrLogsSector;
+                this.sectoresService.updateSector(unSector);
+              });
+            }
           });
         });
       }

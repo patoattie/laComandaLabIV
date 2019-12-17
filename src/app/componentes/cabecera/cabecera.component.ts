@@ -25,6 +25,7 @@ export class CabeceraComponent implements OnInit {
     ];
 
     this.itemsSocio = [
+      { label: 'Personal', command: () => {this.opcionMenuSocio.emit('listadoPersonal'); } },
       { label: 'Sectores', command: () => {this.opcionMenuSocio.emit('listadoSectores'); } }
     ];
   }
