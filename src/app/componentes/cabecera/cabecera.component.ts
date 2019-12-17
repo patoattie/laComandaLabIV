@@ -20,7 +20,7 @@ export class CabeceraComponent implements OnInit {
 
   constructor(
     public authService: AuthService, 
-    private personalService: PersonalService, 
+    public personalService: PersonalService, 
     private sectoresService: SectoresService,
     private logService: LogsService
   ) { }
