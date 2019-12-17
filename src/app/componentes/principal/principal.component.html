@@ -1,4 +1,4 @@
-<app-cabecera (opcionMenuSocio)="novedadOpcionMenuSocio($event)"></app-cabecera>
+<app-cabecera (opcionMenu)="novedadOpcionMenu($event)"></app-cabecera>
 
 <app-listado-sectores *ngIf="listaSectores" [sectores]="sectores"></app-listado-sectores>
 <app-listado-personal *ngIf="listaPersonal" [esLov]="false" [logs]="logs" [sectores]="sectores" [personal]="personal"></app-listado-personal>

@@ -48,7 +48,7 @@
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr *ngIf="personalService.esSocio() || rowData['email'] == personalService.getEmail()">
       <td *ngFor="let col of columns">
-        <p *ngIf="col.field != 'photoURL'">{{rowData[col.field]}}</p>
+        <p *ngIf="col.field != 'photoURL' && col.field != 'sector'">{{rowData[col.field]}}</p>
         <img *ngIf="col.field == 'photoURL'" src="{{rowData[col.field]}}" alt="" style="width: 25%;">
       </td>
     </tr>

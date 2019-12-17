@@ -1,7 +1,9 @@
 <p-toolbar>
     <div class="ui-toolbar-group-left">
-      <button #btn *ngIf="authService.isLoggedIn() && esSocio()" type="button" pButton icon="pi pi-bars" label="Socios" (click)="menu2.toggle($event)"></button>
-      <p-tieredMenu #menu2 [popup]="true" [model]="itemsSocio"></p-tieredMenu>
+      <button #btn *ngIf="authService.isLoggedIn() && personalService.esSocio()" type="button" pButton icon="pi pi-bars" (click)="menuSocio.toggle($event)"></button>
+      <p-tieredMenu #menuSocio [popup]="true" [model]="itemsSocio"></p-tieredMenu>
+      <button #btn *ngIf="authService.isLoggedIn() && !personalService.esSocio()" type="button" pButton icon="pi pi-bars" (click)="menuUsuario.toggle($event)"></button>
+      <p-tieredMenu #menuUsuario [popup]="true" [model]="itemsUsuario"></p-tieredMenu>
 
       <label style="margin-left: 3em; margin-right: 3em; font-size: large;">La Comanda - Laboratorio IV</label>
     </div>

@@ -73,7 +73,12 @@ export class SectoresService {
  
   public updateSector(sector: Sector): Promise<void> 
   {
-    return this.sectorCollection.doc(sector.idCollection).update({ sector: sector.sector, personal: sector.personal.map((obj)=> {return Object.assign({}, obj)}), log: sector.log.map((obj)=> {return Object.assign({}, obj)}), productos: sector.productos.map((obj)=> {return Object.assign({}, obj)}) });
+    return this.sectorCollection.doc(sector.idCollection).update(
+      { sector: sector.sector, 
+        personal: sector.personal == undefined || sector.personal == null ? null : sector.personal.map((obj)=> {return Object.assign({}, obj)}), 
+        log: sector.log == undefined || sector.log == null ? null : sector.log.map((obj)=> {return Object.assign({}, obj)}), 
+        productos: sector.productos == undefined || sector.productos == null ? null : sector.productos.map((obj)=> {return Object.assign({}, obj)}) 
+      });
   }
  
   public deleteSector(idCollection: string): Promise<void> 

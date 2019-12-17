@@ -225,7 +225,7 @@ export class RegistroComponent implements OnInit {
               let arrLogs: Log[] = [];
               arrLogs.push(logNuevo);
 
-              let usuarioNuevo: Personal = new Personal(this.formRegistro.value.perfil, '', arrLogs, EEstadoPersonal.Activo, this.authService.getUserData());
+              let usuarioNuevo: Personal = new Personal(this.formRegistro.value.perfil, '', '', arrLogs, EEstadoPersonal.Activo, this.authService.getUserData());
               this.personalService.updateUsuario(usuarioNuevo)
               .then(() =>
               {
@@ -257,11 +257,11 @@ export class RegistroComponent implements OnInit {
     if(this.usuario != null)
     {
       let sectorAnterior: Sector = this.sectoresService.getSector(this.usuario.sector, this.sectores);
-      let usuarioAnterior: Personal = new Personal(this.usuario.tipo, this.usuario.sector, this.usuario.log, this.usuario.estado, null, this.usuario.uid, this.usuario.email, this.usuario.displayName, this.usuario.photoURL, this.usuario.emailVerified);
+      let usuarioAnterior: Personal = new Personal(this.usuario.tipo, this.usuario.sector, this.usuario.idSector, this.usuario.log, this.usuario.estado, null, this.usuario.uid, this.usuario.email, this.usuario.displayName, this.usuario.photoURL, this.usuario.emailVerified);
       let sectorNuevo: Sector;
       this.usuario.tipo = this.formRegistro.value.perfil;
-      //this.usuario.sector = this.formRegistro.value.sector;
-      this.usuario.sector = this.sectoresService.getSector(this.formRegistro.value.sector, this.sectores).idCollection;
+      this.usuario.sector = this.formRegistro.value.sector;
+      this.usuario.idSector = this.sectoresService.getSector(this.formRegistro.value.sector, this.sectores).idCollection;
       await this.personalService.updateUsuario(this.usuario);
 
       //Remuevo al usuario del sector donde estaba antes
@@ -288,7 +288,7 @@ export class RegistroComponent implements OnInit {
       {
         sectorNuevo = this.sectoresService.getSector(this.usuario.sector, this.sectores);
 
-        if(sectorNuevo.personal == undefined)
+        if(sectorNuevo.personal == undefined || sectorNuevo.personal == null)
         {
           sectorNuevo.personal = [];
         }

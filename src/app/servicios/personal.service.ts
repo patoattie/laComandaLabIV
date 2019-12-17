@@ -36,13 +36,15 @@ export class PersonalService
     return this.personal;
   }
 
-  public getUsuario(uid: string): Personal
+  public async getUsuario(uid: string): Promise<Personal>
   {
     let retorno: Personal = JSON.parse(localStorage.getItem('usuario'));
 
     if(retorno == null || retorno.tipo == undefined || retorno.sector == undefined || retorno.log == undefined)
     {
-      this.personal.forEach((arrPersonal) =>
+      //this.personal.forEach((arrPersonal) =>
+      this.personal.toPromise()
+      .then((arrPersonal) =>
         {
           arrPersonal.forEach((unUsuario) =>
             {
@@ -90,7 +92,7 @@ export class PersonalService
 
   public getUsuarioPorId(uid: string): Observable<Personal> 
   {
-    return this.personalCollection.doc<any>(uid).valueChanges().pipe(
+    return this.personalCollection.doc<Personal>(uid).valueChanges().pipe(
       take(1),
       map(usuario => {
         usuario.uid = uid;
@@ -101,7 +103,7 @@ export class PersonalService
   
   public updateUsuario(usuario: Personal): Promise<void> 
   {
-    return this.personalCollection.doc(usuario.uid).update({ tipo: usuario.tipo, sector: usuario.sector, log: usuario.log.map((obj)=> {return Object.assign({}, obj)}), estado: usuario.estado });
+    return this.personalCollection.doc(usuario.uid).update({ tipo: usuario.tipo, sector: usuario.sector, idSector: usuario.idSector, log: usuario.log.map((obj)=> {return Object.assign({}, obj)}), estado: usuario.estado });
   }
  
   public deleteUsuario(uid: string): Promise<void> 
@@ -138,7 +140,8 @@ export class PersonalService
 
   public esSocio(): boolean
   {
-    return this.getUsuario(this.authService.getUid()).tipo == ETipoPersonal.Socio;
+    //return this.getUsuario(this.authService.getUid()).tipo == ETipoPersonal.Socio;
+    return JSON.parse(localStorage.getItem('usuario')).tipo == ETipoPersonal.Socio;
   }
 
   public getEmail(): string
@@ -148,6 +151,7 @@ export class PersonalService
 
   public getTipo(): string
   {
-    return this.getUsuario(this.authService.getUid()).tipo;
+    //return this.getUsuario(this.authService.getUid()).tipo;
+    return JSON.parse(localStorage.getItem('usuario')).tipo;
   }
 }

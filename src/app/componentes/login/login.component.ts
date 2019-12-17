@@ -93,44 +93,69 @@ export class LoginComponent implements OnInit {
 
     if(this.formLogin.valid)
     {
-      await this.authService.SignIn(this.formLogin.value.usuario, this.formLogin.value.clave);
-      usuarioValido = this.authService.isLoggedIn();
-      if(usuarioValido)
-      {
-        this.personalService.getUsuario(this.authService.getUid());
-
-        let logNuevo: Log = new Log('', this.formLogin.value.usuario, this.logService.getFecha(), EOperacion.SistemaLogin);
-        this.logService.addLog(logNuevo)
-        .then(() =>
+      //await this.authService.SignIn(this.formLogin.value.usuario, this.formLogin.value.clave);
+      await this.authService.SignIn(this.formLogin.value.usuario, this.formLogin.value.clave)
+        usuarioValido = this.authService.isLoggedIn();
+  console.info('usuarioValido', usuarioValido);
+        if(usuarioValido)
         {
+          this.personalService.getUsuario(this.authService.getUid())
+          .then((unUsuario) =>
+          {
+
+          /*});
+  
           this.personalService.getUsuarioPorId(this.authService.getUid())
           .toPromise()
           .then((unUsuario) =>
-          {
-            let arrLogsUsuario: Log[] = unUsuario.log;
-            arrLogsUsuario.push(logNuevo);
-            unUsuario.log = arrLogsUsuario;
-            this.personalService.updateUsuario(unUsuario);
-
-            if(unUsuario.sector != "")
+          {*/
+  console.info('unUsuario', unUsuario);
+            let logNuevo: Log = new Log(unUsuario.sector, this.formLogin.value.usuario, this.logService.getFecha(), EOperacion.SistemaLogin);
+            this.logService.addLog(logNuevo)
+            .then(() =>
             {
-              this.sectoresService.getSectorPorId(unUsuario.sector)
-              .toPromise()
-              .then((unSector) =>
+              let arrLogsUsuario: Log[];
+              if(unUsuario.log == null || unUsuario.log == undefined)
               {
-                let arrLogsSector: Log[] = unSector.log;
-                arrLogsSector.push(logNuevo);
-                unSector.log = arrLogsSector;
-                this.sectoresService.updateSector(unSector);
-              });
-            }
+                arrLogsUsuario = [];
+              }
+              else
+              {
+                arrLogsUsuario = unUsuario.log;
+              }
+  
+              arrLogsUsuario.push(logNuevo);
+              unUsuario.log = arrLogsUsuario;
+              this.personalService.updateUsuario(unUsuario);
+  
+              if(unUsuario.idSector != "")
+              {
+                this.sectoresService.getSectorPorId(unUsuario.idSector)
+                .toPromise()
+                .then((unSector) =>
+                {
+                  let arrLogsSector: Log[];
+                  if(unSector.log == null || unSector.log == undefined)
+                  {
+                    arrLogsSector = [];
+                  }
+                  else
+                  {
+                    arrLogsSector = unSector.log;
+                  }
+  
+                  arrLogsSector.push(logNuevo);
+                  unSector.log = arrLogsSector;
+                  this.sectoresService.updateSector(unSector);
+                });
+              }
+            });
           });
-        });
-      }
-      else
-      {
-        this.mostrarMsjErrorAuth();
-      }
+        }
+        else
+        {
+          this.mostrarMsjErrorAuth();
+        }
     }
     else
     {

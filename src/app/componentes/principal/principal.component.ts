@@ -35,11 +35,11 @@ export class PrincipalComponent implements OnInit, OnDestroy
       {
         this.sectores = sectores;
         //Elimina los duplicados que se generan al suscribir después de desloguearse, no lo pude resolver de una forma más elegante
-        this.sectores = this.sectores.filter((test, index, array) =>
+        /*this.sectores = this.sectores.filter((test, index, array) =>
           index === array.findIndex((findTest) =>
            findTest.idCollection === test.idCollection
           )
-        );
+        );*/
       })
     );
 
@@ -49,11 +49,11 @@ export class PrincipalComponent implements OnInit, OnDestroy
       {
         this.personal = personal;
         //Elimina los duplicados que se generan al suscribir después de desloguearse, no lo pude resolver de una forma más elegante
-        this.personal = this.personal.filter((test, index, array) =>
+        /*this.personal = this.personal.filter((test, index, array) =>
           index === array.findIndex((findTest) =>
            findTest.uid === test.uid
           )
-        );
+        );*/
       })
     );
 
@@ -63,11 +63,11 @@ export class PrincipalComponent implements OnInit, OnDestroy
       {
         this.logs = logs;
         //Elimina los duplicados que se generan al suscribir después de desloguearse, no lo pude resolver de una forma más elegante
-        this.logs = this.logs.filter((test, index, array) =>
+        /*this.logs = this.logs.filter((test, index, array) =>
           index === array.findIndex((findTest) =>
            findTest.idCollection === test.idCollection
           )
-        );
+        );*/
       })
     );
   }
@@ -80,7 +80,7 @@ export class PrincipalComponent implements OnInit, OnDestroy
     });
   }
 
-  public novedadOpcionMenuSocio($event: string): void
+  public novedadOpcionMenu($event: string): void
   {
     switch ($event)
     {
