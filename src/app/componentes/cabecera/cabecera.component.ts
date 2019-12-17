@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../servicios/auth.service';
 import { MenuItem } from 'primeng/api';
 import { PersonalService } from '../../servicios/personal.service';
@@ -13,6 +13,8 @@ import { EOperacion } from '../../enums/eoperacion.enum';
 })
 export class CabeceraComponent implements OnInit {
   public items: MenuItem[];
+  public itemsSocio: MenuItem[];
+  @Output() opcionMenuSocio: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public authService: AuthService, private personalService: PersonalService, private logService: LogsService) { }
 
@@ -20,6 +22,10 @@ export class CabeceraComponent implements OnInit {
   {
     this.items = [
       { label: 'Salir', icon: 'pi pi-sign-out', command: () => {this.salir(); } }
+    ];
+
+    this.itemsSocio = [
+      { label: 'Sectores', command: () => {this.opcionMenuSocio.emit('listadoSectores'); } }
     ];
   }
 
@@ -43,7 +49,6 @@ export class CabeceraComponent implements OnInit {
         {
           this.authService.SignOut();
         });
-//console.info('unUsuario', unUsuario);
       });
     });
   }
@@ -58,5 +63,10 @@ export class CabeceraComponent implements OnInit {
     }
 
     return urlFoto;
+  }
+
+  public esSocio(): boolean
+  {
+    return this.personalService.esSocio();
   }
 }

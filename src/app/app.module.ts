@@ -25,9 +25,12 @@ import { InputTextModule } from "primeng/inputtext";
 import {PasswordModule} from 'primeng/password';
 import {ToastModule} from 'primeng/toast';
 import {ListboxModule} from 'primeng/listbox';
+import {ButtonModule} from 'primeng/button';
 
 import { AuthService } from './servicios/auth.service';
 import { MessageService } from 'primeng/api';
+import { ListadoSectoresComponent } from './componentes/listado-sectores/listado-sectores.component';
+import { AbmSectorComponent } from './componentes/abm-sector/abm-sector.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { MessageService } from 'primeng/api';
     CabeceraComponent,
     LoginComponent,
     RegistroComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    ListadoSectoresComponent,
+    AbmSectorComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,7 @@ import { MessageService } from 'primeng/api';
     PasswordModule,
     ToastModule,
     ListboxModule,
+    ButtonModule,
     AppRoutingModule
   ],
   providers: [

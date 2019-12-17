@@ -39,7 +39,7 @@ export class PersonalService
   public getUsuario(uid: string): Personal
   {
     let retorno: Personal = JSON.parse(localStorage.getItem('usuario'));
-//console.info('1', retorno);
+
     if(retorno == null || retorno.tipo == undefined || retorno.sector == undefined || retorno.log == undefined)
     {
       this.personal.forEach((arrPersonal) =>
@@ -49,14 +49,12 @@ export class PersonalService
               if(unUsuario.uid == uid)
               {
                 retorno = unUsuario;
-//console.info('2', retorno);
                 localStorage.setItem('usuario', JSON.stringify(retorno));
               }
             });
         });
 
       retorno = JSON.parse(localStorage.getItem('usuario'));
-//console.info('3', retorno);
     }
 
     return retorno;
