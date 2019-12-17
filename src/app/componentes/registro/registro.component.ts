@@ -223,11 +223,9 @@ export class RegistroComponent implements OnInit {
             .then(() =>
             {
               let arrLogs: Log[] = [];
-//console.info('logNuevo', logNuevo);
               arrLogs.push(logNuevo);
+
               let usuarioNuevo: Personal = new Personal(this.formRegistro.value.perfil, '', arrLogs, EEstadoPersonal.Activo, this.authService.getUserData());
-//console.info('arrLogs', arrLogs);
-//console.info('usuarioNuevo', usuarioNuevo);
               this.personalService.updateUsuario(usuarioNuevo)
               .then(() =>
               {

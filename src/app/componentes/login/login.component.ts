@@ -5,6 +5,9 @@ import { AuthService } from '../../servicios/auth.service';
 import { PersonalService } from '../../servicios/personal.service';
 
 import {MessageService} from 'primeng/api';
+import { Log } from '../../clases/log';
+import { LogsService } from '../../servicios/logs.service';
+import { EOperacion } from '../../enums/eoperacion.enum';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +23,7 @@ export class LoginComponent implements OnInit {
     private miConstructor: FormBuilder, 
     public authService: AuthService, 
     private personalService: PersonalService,
+    private logService: LogsService,
     public messageService: MessageService
     ) 
     {
@@ -91,8 +95,23 @@ export class LoginComponent implements OnInit {
       usuarioValido = this.authService.isLoggedIn();
       if(usuarioValido)
       {
-        //this.completarUsuario('blanquear');
-       await this.personalService.getUsuario(this.authService.getUid());
+        this.personalService.getUsuario(this.authService.getUid());
+
+        let logNuevo: Log = new Log('', this.formLogin.value.usuario, this.logService.getFecha(), EOperacion.SistemaLogin);
+        this.logService.addLog(logNuevo)
+        .then(() =>
+        {
+          this.personalService.getUsuarioPorId(this.authService.getUid())
+          .toPromise()
+          .then((unUsuario) =>
+          {
+            let arrLogs: Log[] = unUsuario.log;
+            arrLogs.push(logNuevo);
+            unUsuario.log = arrLogs;
+            this.personalService.updateUsuario(unUsuario);
+//console.info('unUsuario', unUsuario);
+          });
+        });
       }
       else
       {

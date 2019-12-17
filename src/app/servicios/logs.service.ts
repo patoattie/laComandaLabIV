@@ -93,9 +93,10 @@ export class LogsService {
       fecha: this.getFecha()
     };
 
+    //Le cargo el id del documento y del usuario para poder guardar en la colección personal
     unLog.idCollection = logData.idCollection;
     unLog.uid = logData.uid;
-//console.info('unLog', unLog);
+
     return logRef.set(logData, {
       merge: true
     });
